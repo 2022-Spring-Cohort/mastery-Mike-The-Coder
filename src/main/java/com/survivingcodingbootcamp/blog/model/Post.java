@@ -1,26 +1,60 @@
 package com.survivingcodingbootcamp.blog.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 
 @Entity
 public class Post {
+
     @Id
     @GeneratedValue
     private Long id;
     private String title;
+    private String author;
+
     @ManyToOne
     private Topic topic;
     @Lob
     private String content;
 
-    protected Post() {
-    }
+    @ManyToMany
+    private Collection<Hashtag> hashtags;
 
-    public Post(String title, Topic topic, String content) {
+    @OneToMany(mappedBy = "post")
+    private Collection<Review> reviews;
+
+
+//    public void addHashtag(Hashtag hashtag) { hashtags.add(hashtag); }
+//    public void addReview(Review review) {
+//        reviews.add(review);
+//    }
+
+    public void addHashtag(Hashtag hashtag) { hashtags.add(hashtag); }
+//    public Collection<Hashtag> getHashtag() {
+//        return hashtag;
+//    }
+
+
+
+
+
+    public Post(String title, Topic topic, String author, String content) {
         this.title = title;
         this.topic = topic;
         this.content = content;
+        this.author = author;
+        this.hashtags = new ArrayList<>();
+
     }
+    public Post(){
+
+    }
+
+//    public Post(Hashtag... hashtags) {
+//        this.hashtags = Arrays.asList(hashtags);
+//    }
 
     public Long getId() {
         return id;
@@ -30,12 +64,22 @@ public class Post {
         return title;
     }
 
+    public String getAuthor() { return author; }
+
     public Topic getTopic() {
         return topic;
     }
 
     public String getContent() {
         return content;
+    }
+
+    public Collection<Hashtag> getHashtags() {
+        return hashtags;
+    }
+
+    public Collection<Review> getReviews() {
+        return reviews;
     }
 
     @Override
@@ -69,4 +113,6 @@ public class Post {
         result = 31 * result + (content != null ? content.hashCode() : 0);
         return result;
     }
+
+
 }

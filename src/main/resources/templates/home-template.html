@@ -1,9 +1,5 @@
 <!DOCTYPE html>
-<html
-        lang="en"
-        xmlns="http://www.w3.org/1999/xhtml"
-        xmlns:th="http://www.thymeleaf.org"
->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -18,7 +14,8 @@
         <h1 class="header__title">Surviving Coding Boot Camp</h1>
         <nav class="header__nav">
             <div class="header__nav-item"><a href="/" class="header__nav-link">Home</a></div>
-            <div class="header__nav-item"><a href="/hashtags" class="header__nav-link">Hashtags</a></div>
+            <div class="header__nav-item"><a href="/hashtags/" class="header__nav-link">Hashtags</a></div>
+
         </nav>
     </header>
     <main class="main-content">
@@ -26,9 +23,22 @@
             other side.</p>
         <section class="main-content__topics topics">
             <h2 class="topics__title main-content__title">Topics</h2>
+            This is where I started everything.
+          <section class = "post-collection">
+            <p th:each="post: ${post}" th:text="${./single-post/{id}.html}" th:href="'/posts/'+${post.id}">Sample Post Here</p>
+
+
+
+
+          </section>
             <nav class="main-content__nav topics__nav">
                 <a th:each="topic: ${topics}" th:text="${topic.name}" th:href="'/topics/'+${topic.id}" href="#"
                    class="topics__nav-link"></a>
+            </nav>
+            <h2>Hashtags</h2>
+            <nav class="main-content__nav topics__nav">
+                <a th:each="hashtag: ${hashtags}" th:text="${hashtag.name}" th:href="'/hashtag/'+${hashtag.id}" href="#"
+                 class="topics__nav-link"></a>
             </nav>
         </section>
     </main>
