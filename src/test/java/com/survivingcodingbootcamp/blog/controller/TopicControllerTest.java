@@ -1,6 +1,8 @@
 package com.survivingcodingbootcamp.blog.controller;
 
+import com.survivingcodingbootcamp.blog.model.Hashtag;
 import com.survivingcodingbootcamp.blog.model.Post;
+import com.survivingcodingbootcamp.blog.model.Review;
 import com.survivingcodingbootcamp.blog.model.Topic;
 import com.survivingcodingbootcamp.blog.repository.TopicRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,6 +24,8 @@ public class TopicControllerTest {
     private TopicRepository topicRepo;
     private Model model;
     private Topic testTopic;
+    private Review testReview;
+    private Hashtag hashtagReview;
 
     @BeforeEach
     void setUp() {

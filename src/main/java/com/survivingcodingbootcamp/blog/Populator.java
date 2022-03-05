@@ -1,8 +1,12 @@
 package com.survivingcodingbootcamp.blog;
 
+import com.survivingcodingbootcamp.blog.model.Hashtag;
 import com.survivingcodingbootcamp.blog.model.Post;
+import com.survivingcodingbootcamp.blog.model.Review;
 import com.survivingcodingbootcamp.blog.model.Topic;
+import com.survivingcodingbootcamp.blog.repository.HashtagRepository;
 import com.survivingcodingbootcamp.blog.repository.PostRepository;
+import com.survivingcodingbootcamp.blog.repository.ReviewRepository;
 import com.survivingcodingbootcamp.blog.repository.TopicRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -12,41 +16,67 @@ public class Populator implements CommandLineRunner {
 
     private TopicRepository topicRepo;
     private PostRepository postRepo;
+    private HashtagRepository hashtagRepo;
+    private ReviewRepository reviewRepo;
 
 
-    public Populator(TopicRepository topicRepo, PostRepository postRepo) {
+    public Populator(TopicRepository topicRepo, PostRepository postRepo, HashtagRepository hashtagRepo, ReviewRepository reviewRepo) {
 
         this.topicRepo = topicRepo;
         this.postRepo = postRepo;
+        this.hashtagRepo = hashtagRepo;
+        this.reviewRepo = reviewRepo;
     }
 
     @Override
     public void run(String... args) throws Exception {
 
+        Hashtag hashtag1 = new Hashtag("TDD");
+        hashtagRepo.save(hashtag1);
+        Hashtag hashtag2 = new Hashtag("Java");
+        hashtagRepo.save(hashtag2);
+        Hashtag hashtag3 = new Hashtag("Post");
+        hashtagRepo.save(hashtag3);
+
+
+
         Topic topic1 = new Topic("Learning TDD");
         topicRepo.save(topic1);
 
-        Post post1 = new Post("TDD For Fun and Profit", topic1, "Lorem ipsum dolor sit amet, consectetur " +
+        Post post1 = new Post("TDD For Fun and Profit", topic1, "Rickie", "Lorem ipsum dolor sit amet, consectetur " +
                 "adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim" +
                 " veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis " +
                 "aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. " +
                 "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id " +
                 "est laborum.");
+        post1.addHashtag(hashtag1);
+        post1.addHashtag(hashtag2);
+        post1.addHashtag(hashtag3);
         postRepo.save(post1);
-        Post post2 = new Post("Test the Fear Away", topic1, "Lorem ipsum dolor sit amet, consectetur " +
+        Post post2 = new Post("Test the Fear Away", topic1, "Dave", "Lorem ipsum dolor sit amet, consectetur " +
                 "adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim" +
                 " veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis " +
                 "aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. " +
                 "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id " +
                 "est laborum.");
+        post2.addHashtag(hashtag2);
+        post2.addHashtag(hashtag1);
         postRepo.save(post2);
-        Post post3 = new Post("Unit Tests and You", topic1, "Lorem ipsum dolor sit amet, consectetur " +
+        Post post3 = new Post("Unit Tests and You", topic1, "Scooby","Lorem ipsum dolor sit amet, consectetur " +
                 "adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim" +
                 " veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis " +
                 "aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. " +
                 "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id " +
                 "est laborum.");
+        post3.addHashtag(hashtag3);
         postRepo.save(post3);
+        Review review1 = new Review("Very good",post1);
+        reviewRepo.save(review1);
+        Review review2 = new Review("Amazing", post2);
+        reviewRepo.save(review2);
+        Review review3 = new Review("Stunning", post3);
+        reviewRepo.save(review3);
+
         Topic topic2 = new Topic("Battling Imposter Syndrome");
         topicRepo.save(topic2);
         Topic topic3 = new Topic("Introductory Java");
@@ -54,6 +84,6 @@ public class Populator implements CommandLineRunner {
         Topic topic4 = new Topic("Object Oriented Programming and You");
         topicRepo.save(topic4);
 
-    }
 
+    }
 }

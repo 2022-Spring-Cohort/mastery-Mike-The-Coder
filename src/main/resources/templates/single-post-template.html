@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="${post.title}">Document</title>
     <link rel="icon" href="/assets/icon.png">
@@ -16,7 +16,7 @@
             <h1 class="header__title">Surviving Coding Boot Camp</h1>
             <nav class="header__nav">
                 <div class="header__nav-item"><a href="/" class="header__nav-link">Home</a></div>
-                <div class="header__nav-item"><a href="/hashtags" class="header__nav-link">Hashtags</a></div>
+                <div class="header__nav-item"><a href="/hashtags/" class="header__nav-link">Hashtags</a></div>
             </nav>
         </header>
         <main class="main-content">
@@ -24,9 +24,39 @@
                 <h3 class="post__topic-title main-content__topic-title"><a th:text="${post.topic.name}" th:href="'/topics/'+${post.topic.id}" class="main-content__topic-link post__topic-link">Topic</a>
                     </h3>
                 <h2 th:text="${post.title}" class="post__title main-content__topic-title">Post Title</h2>
-                <p th:text="${post.content}" class="post__content">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloremque blanditiis, aut quae fuga id quis ut. 
+                <p th:text="${post.content}" class="post__content">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloremque blanditiis, aut quae fuga id quis ut.
                     Eligendi necessitatibus blanditiis officia, odio deleniti natus molestiae fugiat ex quod vel aliquam illum.
                 </p>
+
+<!--                TODO: link this-->
+<!--                <p th:text="${post.hashtag.name}">Hashtag</p>-->
+<!--            </section>-->
+<!--            <section>-->
+                <form action="/hashtags/saveHashtag" method="POST">
+                    <label for="hashtag">Enter hashtag:</label><br>
+                    <input type="hidden" name="postId" th:value="${post.id}">
+                    <textarea id="hashtag" name="hashtag" rows="1" cols="60"></textarea><br>
+                    <input type="submit" value="Submit">
+                </form>
+                <form>
+                    <label for="review">Enter review:</label><br>
+                    <textarea id="review" name="review" rows="4" cols="60"></textarea><br>
+                    <input type="submit" value="Submit">
+                </form>
+                <h2>Our reviews!!</h2>
+                <ul>
+                    <li th:each="review:${post.reviews}">
+                        <a  th:text="${review.words}">asdf</a>
+                    </li>
+                </ul>
+                <h2>Find more through hashtags!</h2>
+                <ul>
+
+                    <li th:each="hashtag:${post.hashtags}">
+                        <a  th:text="${hashtag.name}"></a>
+                    </li>
+                    </ul>
+
             </section>
         </main>
     </div>
